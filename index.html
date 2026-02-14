@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1" />
+		<title>Be My Valentine?</title>
+		<link rel="stylesheet" href="style.css">
+	</head>
+	<body>
+		<main class="page">
+			<!-- Envelope on the left with a lovely message -->
+			<div class="envelope" id="envelope" role="button" aria-label="Open love letter">
+				<div class="envelope-body">
+					<div class="flap"></div>
+					<div class="letter hidden" id="letter">
+						<h2>For You</h2>
+						<p>You're so pretty — your smile brightens my day.</p>
+						<p>You're so wonderful — your kindness inspires me.</p>
+						<p>You're so lovely — I'm grateful for every moment with you.</p>
+					</div>
+				</div>
+			</div>
+
+			<!-- Modal popup for the message (appears when envelope clicked) -->
+			<div class="modal hidden" id="modal" aria-hidden="true">
+				<div class="modal-backdrop" id="modalBackdrop"></div>
+				<div class="modal-content" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+					<button class="modal-close" id="modalClose" aria-label="Close">×</button>
+					<h2 id="modalTitle">For You</h2>
+					<p>You're so pretty — your smile brightens my day.</p>
+					<p>You're so wonderful — your kindness inspires me.</p>
+					<p>You're so lovely — I'm grateful for every moment with you.</p>
+				</div>
+			</div>
+			<div class="card" id="card">
+				<div class="heart">❤</div>
+				<h1>Will you be my Valentine?</h1>
+				<p class="subtitle">I really like you yeobo — please say yes 💖</p>
+
+				<div class="buttons">
+					<button id="yesBtn" class="btn yes">Yes</button>
+					<button id="noBtn" class="btn no">No</button>
+				</div>
+
+				<div id="result" class="result hidden">
+					<h2>She said <span class="yay">YES! 🎉</span></h2>
+					<p>Happy Valentine's Day! MY PALANGGA!</p>
+				</div>
+			</div>
+		</main>
+
+		<script src="script.js"></script>
+	</body>
+</html>

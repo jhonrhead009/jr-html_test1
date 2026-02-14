@@ -1,0 +1,191 @@
+
+:root{
+	--bg: #ffeef2;
+	--card: #fff;
+	--accent: #ff4d8a;
+	--muted: #6b6b6b;
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+.body-bg{position:fixed;inset:0;z-index:-2}
+body{
+	margin:0;
+	font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+	display:flex;
+	align-items:center;
+	justify-content:center;
+	padding:24px;
+	position:relative;
+	overflow:hidden;
+}
+
+/* Colorful romantic animated background */
+body::before{
+	content:"";
+	position:fixed;
+	inset:0;
+	z-index:-3;
+	background: radial-gradient(1200px 600px at 10% 20%, rgba(255,182,193,0.25), transparent 20%),
+							radial-gradient(900px 500px at 90% 80%, rgba(255,240,245,0.25), transparent 20%),
+							linear-gradient(160deg,#ffd1e6 0%, #ffecf8 25%, #ffe6f2 50%, #fff1f8 75%, #fffafc 100%);
+	background-size: 200% 200%, 160% 160%, 100% 100%;
+	animation: bgShift 18s ease-in-out infinite alternate;
+}
+
+body::after{
+	content:' ';
+	position:fixed;
+	inset:0;
+	z-index:-2;
+	background-image: radial-gradient(circle at 20% 30%, rgba(255,255,255,0.06) 0 8%, transparent 20%),
+										radial-gradient(circle at 80% 70%, rgba(255,192,203,0.06) 0 6%, transparent 18%);
+	backdrop-filter: blur(6px);
+	opacity:0.95;
+	pointer-events:none;
+}
+
+@keyframes bgShift{
+	0%{background-position:0% 40%, 0% 60%, 0% 0%}
+	50%{background-position:100% 60%, 100% 40%, 0% 0%}
+	100%{background-position:0% 40%, 0% 60%, 0% 0%}
+}
+.page{width:100%;max-width:520px}
+.envelope{position:fixed;left:4%;top:44%;width:160px;height:110px;z-index:3;cursor:pointer;perspective:900px}
+.envelope .envelope-body{position:relative;width:100%;height:100%}
+.envelope .flap{position:absolute;inset:0;border-radius:10px;background:linear-gradient(180deg,#fff,#ffd9ea);box-shadow:0 10px 30px rgba(0,0,0,0.12);transform-origin:top center;transition:transform .55s cubic-bezier(.2,.9,.3,1) .06s, box-shadow .35s;display:flex;align-items:center;justify-content:center}
+.envelope .flap::after{content:'';position:absolute;left:0;right:0;top:0;height:40px;background:linear-gradient(180deg,rgba(255,255,255,0.45),transparent)}
+.envelope .letter{position:absolute;left:8px;right:8px;top:14px;bottom:8px;background:linear-gradient(180deg,#fff,#fff7fb);border-radius:6px;padding:12px 12px;color:#5b2b3a;box-shadow:0 8px 20px rgba(0,0,0,0.10);transform-origin:top center;transition:transform .45s cubic-bezier(.2,.9,.3,1),opacity .35s;transform:translateY(0)}
+.envelope .letter h2{margin:0 0 6px;font-size:16px;color:#d63b6f}
+.envelope .letter p{margin:6px 0;color:#5b2b3a;line-height:1.2;font-size:13px}
+.envelope .letter.hidden{opacity:0;transform:translateY(-8px) scale(0.98)}
+.envelope.open .flap{transform:rotateX(170deg) translateY(-16px);box-shadow:0 22px 40px rgba(255,77,138,0.14)}
+.envelope.open .letter{opacity:1;transform:translateY(-12px) scale(1)}
+
+/* small lift when hovered */
+.envelope:hover .flap{transform:translateY(-6px);box-shadow:0 14px 30px rgba(255,77,138,0.08)}
+
+/* Modal popup when envelope clicked */
+.modal{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;z-index:6}
+.modal.hidden{display:none}
+.modal-backdrop{position:fixed;inset:0;background:rgba(12,8,20,0.48);backdrop-filter:blur(2px)}
+.modal-content{position:relative;z-index:7;background:linear-gradient(180deg,#fff,#fff7fb);padding:20px 22px;border-radius:12px;box-shadow:0 30px 60px rgba(12,8,20,0.25);max-width:420px;width:90%;color:#4b2333;transform:scale(.9);opacity:0;transition:transform .28s cubic-bezier(.2,.9,.3,1),opacity .28s}
+.modal:not(.hidden) .modal-content{transform:scale(1);opacity:1}
+.modal-close{position:absolute;top:8px;right:10px;border:0;background:transparent;color:#8b3a5b;font-size:20px;cursor:pointer}
+.modal-content h2{margin-top:2px;color:#c83b67}
+.modal-content p{margin:8px 0 6px;line-height:1.25}
+.card{
+	background:var(--card);
+	border-radius:18px;
+	padding:34px 28px;
+	box-shadow:0 10px 30px rgba(0,0,0,0.08);
+	text-align:center;
+	position:relative;
+	z-index:2;
+}
+.heart{
+	font-size:48px;
+	color:var(--accent);
+	transform:translateY(-12px);
+}
+h1{margin:6px 0 6px;font-size:24px}
+.subtitle{color:var(--muted);margin:0 0 18px}
+.buttons{display:flex;gap:12px;justify-content:center;margin-top:8px}
+.btn{padding:12px 22px;border-radius:10px;border:0;font-weight:600;cursor:pointer;transition:transform .12s ease, box-shadow .12s ease}
+.btn:focus{outline:2px solid rgba(255,77,138,0.15)}
+.btn.yes{background:linear-gradient(180deg,#ff7aa3,#ff4d8a);color:white;box-shadow:0 6px 18px rgba(255,77,138,0.18)}
+.btn.no{background:#f5f5f5;color:#333}
+.btn.no.moved{transform:translate3d(12px,-6px,0)}
+.result{margin-top:20px;padding:18px;border-radius:12px;background:linear-gradient(180deg,#fff7f9,#fff0f5);}
+.hidden{display:none}
+
+/* playful floating hearts for success */
+.confetti{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+.confetti span{position:absolute;font-size:18px;opacity:0.9;animation:floatUp 2.4s linear forwards}
+@keyframes floatUp{0%{transform:translateY(40px);opacity:1}100%{transform:translateY(-160px) rotate(180deg);opacity:0}}
+
+@media (max-width:420px){.card{padding:22px}}
+
+/* Bouquet large display when accepted */
+.bouquet{
+	position:fixed;
+	right:6%;
+	left:auto;
+	top:58%;
+	transform:translateY(-50%) scale(0);
+	width:360px;
+	height:460px;
+	pointer-events:none;
+	z-index:1;
+	display:flex;
+	align-items:flex-end;
+	justify-content:center;
+	transition:transform .9s cubic-bezier(.2,.9,.3,1), opacity .6s ease;
+	opacity:0;
+}
+.bouquet.show{transform:translateY(-50%) scale(1);opacity:1}
+.bouquet .wrap{position:relative;width:100%;height:100%}
+.bouquet .flower{position:absolute;filter:drop-shadow(0 6px 18px rgba(0,0,0,0.14));transform-origin:center;animation-name:bloomFloat;animation-timing-function:cubic-bezier(.2,.9,.3,1);}
+.bouquet .flower:hover{transform:scale(1.06)}
+.bouquet .ribbon{position:absolute;bottom:18px;left:50%;transform:translateX(-50%);width:160px;height:38px;background:linear-gradient(180deg,#ff4d8a,#ff2b6b);border-radius:10px;box-shadow:0 8px 20px rgba(255,77,138,0.22);display:flex;align-items:center;justify-content:center;color:white;font-weight:700}
+.bouquet .stems{position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:80px;height:140px;background:linear-gradient(180deg,#6dbf6d,#2e8b3b);border-radius:40px}
+
+@keyframes bloomFloat{
+	0%{transform:translateY(20px) scale(0.65) rotate(-6deg);opacity:0}
+	25%{transform:translateY(6px) scale(1.05) rotate(6deg);opacity:1}
+	60%{transform:translateY(-8px) scale(0.98) rotate(-3deg)}
+	100%{transform:translateY(-12px) scale(1) rotate(2deg);opacity:1}
+}
+
+/* subtle slow sway for the whole bouquet when shown */
+.bouquet.show{animation:bouquetSway 6s ease-in-out infinite}
+@keyframes bouquetSway{0%{transform:translateY(-50%) translateX(0) scale(1)}50%{transform:translateY(-52%) translateX(6px) scale(1.01)}100%{transform:translateY(-50%) translateX(0) scale(1)}}
+
+@media (max-width:520px){
+	.bouquet{width:240px;height:320px;top:60%}
+	.bouquet .ribbon{width:120px;height:32px;font-size:14px}
+}
+
+
+/* Responsive adjustments */
+@media (max-width:520px){
+	.page{max-width:92vw}
+	.card{padding:18px;border-radius:14px}
+	.heart{font-size:40px}
+	h1{font-size:20px}
+	.subtitle{font-size:14px}
+	.buttons{flex-direction:column;gap:10px}
+	.btn{width:100%;padding:12px 16px}
+}
+
+@media (max-width:420px){
+	.confetti span{font-size:16px !important}
+	.confetti-flower{font-size:16px !important}
+	.sparkle{display:none}
+}
+
+/* falling flowers */
+.confetti-flower{
+	position:absolute;
+	top:-40px;
+	pointer-events:none;
+	user-select:none;
+	transform-origin:center;
+	will-change:transform,opacity;
+	animation-name:fallFlower;
+	animation-timing-function:linear;
+}
+@keyframes fallFlower{
+	0%{transform:translateY(0) rotate(0) scale(1); opacity:1}
+	70%{opacity:0.95}
+	100%{transform:translateY(120vh) rotate(360deg) scale(0.9); opacity:0}
+}
+
+/* small sparkles */
+.sparkle{
+	position:absolute;top:0;left:0;width:8px;height:8px;border-radius:50%;background:radial-gradient(circle at 30% 30%, #fff, rgba(255,255,255,0.2) 40%, rgba(255,255,255,0) 60%);pointer-events:none;opacity:0.9;transform:translateY(0);animation:rise 1.6s ease-out forwards;
+}
+@keyframes rise{
+	0%{transform:translateY(0) scale(0.6);opacity:1}
+	100%{transform:translateY(-80px) scale(1.2);opacity:0}
+}
+
